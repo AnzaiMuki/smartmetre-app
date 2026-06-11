@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import StructureCard from '@/components/StructureCard';
+import ExportButtons from '@/components/ExportButtons';
 
 export default async function ProjectPage({
   params,
@@ -42,14 +43,15 @@ export default async function ProjectPage({
         {project.client && ` · Client : ${project.client}`}
       </p>
 
-      <div className="mb-8">
-        <Link
-          href={`/projects/${id}/new`}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          + Ajouter un ouvrage
-        </Link>
-      </div>
+      <div className="mb-8 flex flex-wrap gap-4 items-center">
+  <Link
+    href={`/projects/${id}/new`}
+    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+  >
+    + Ajouter un ouvrage
+  </Link>
+  <ExportButtons projectId={id} />
+</div>
 
       {structures && structures.length > 0 ? (
         <div className="grid gap-4">
