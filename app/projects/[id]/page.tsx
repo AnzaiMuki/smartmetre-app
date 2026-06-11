@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import StructureCard from '@/components/StructureCard';
 
 export default async function ProjectPage({
   params,
@@ -15,7 +16,6 @@ export default async function ProjectPage({
     redirect('/login');
   }
 
-  // Récupérer le projet
   const { data: project } = await supabase
     .from('projects')
     .select('*')
@@ -26,7 +26,6 @@ export default async function ProjectPage({
     return <p className="p-8">Projet introuvable.</p>;
   }
 
-  // Récupérer les ouvrages du projet
   const { data: structures } = await supabase
     .from('structures')
     .select('*, structure_types(name)')
@@ -54,15 +53,13 @@ export default async function ProjectPage({
 
       {structures && structures.length > 0 ? (
         <div className="grid gap-4">
-          {structures.map((s) => (
-            <div key={s.id} className="p-4 border rounded">
-              <h3 className="font-semibold">
-                {s.name || 'Sans nom'} ({s.structure_types?.name})
-              </h3>
-              <pre className="text-sm text-gray-600 mt-2">
-                {JSON.stringify(s.parameters, null, 2)}
-              </pre>
-            </div>
+          {structures.map((s: any) => (
+            <StructureCard
+              key={s.id}
+              name={s.name}
+              typeName={s.structure_types?.name || 'Inconnu'}
+              parameters={s.parameters as any}
+            />
           ))}
         </div>
       ) : (
