@@ -1,8 +1,13 @@
-import { calculerSemelle, SemelleDimensions } from './semelle';
-import { calculerPoteau, PoteauDimensions } from './poteau';
-import { calculerPoutre, PoutreDimensions } from './poutre';
-import { calculerDalle, DalleDimensions } from './dalle';
-import { calculerMurAgglos, MurAgglosDimensions } from './murAgglos';
+import { calculerSemelle } from './semelle';
+import type { SemelleDimensions } from './semelle';
+import { calculerPoteau } from './poteau';
+import type { PoteauDimensions } from './poteau';
+import { calculerPoutre } from './poutre';
+import type { PoutreDimensions } from './poutre';
+import { calculerDalle } from './dalle';
+import type { DalleDimensions } from './dalle';
+import { calculerMurAgglos } from './murAgglos';
+import type { MurAgglosDimensions } from './murAgglos';
 
 export type StructureTypeName =
   | 'Semelle isolée'
@@ -16,15 +21,15 @@ export function calculate(type: StructureTypeName, dimensions: Record<string, nu
   switch (type) {
     case 'Semelle isolée':
     case 'Semelle filante':
-      return calculerSemelle(dimensions as SemelleDimensions);
+      return calculerSemelle(dimensions as unknown as SemelleDimensions);
     case 'Poteau':
-      return calculerPoteau(dimensions as PoteauDimensions);
+      return calculerPoteau(dimensions as unknown as PoteauDimensions);
     case 'Poutre':
-      return calculerPoutre(dimensions as PoutreDimensions);
+      return calculerPoutre(dimensions as unknown as PoutreDimensions);
     case 'Dalle pleine':
-      return calculerDalle(dimensions as DalleDimensions);
+      return calculerDalle(dimensions as unknown as DalleDimensions);
     case 'Mur en agglos':
-      return calculerMurAgglos(dimensions as MurAgglosDimensions);
+      return calculerMurAgglos(dimensions as unknown as MurAgglosDimensions);
     default:
       return null;
   }
