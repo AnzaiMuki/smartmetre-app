@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { PlusCircle, ArrowLeft, Ruler, FileText, HardHat, BrickWall, Droplets } from "lucide-react";
+import { PlusCircle, ArrowLeft, Ruler, HardHat, BrickWall, Droplets, FileText } from "lucide-react";
 import ExportButtons from "@/components/ExportButtons";
 
 export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
@@ -40,6 +40,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
 
   return (
     <div className="space-y-8">
+      {/* En-tête avec retour */}
       <div className="flex items-center gap-4">
         <Button variant="outline" size="icon" asChild>
           <Link href="/dashboard">
@@ -55,6 +56,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
         </div>
       </div>
 
+      {/* Cartes de résumé (KPI) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between p-4 pb-2">
@@ -62,7 +64,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
             <Ruler className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent className="p-4 pt-0">
-            <p className="text-2xl font-bold text-primary">{cumul.volume.toFixed(2)} m³</p>
+            <p className="text-2xl font-bold text-foreground">{cumul.volume.toFixed(2)} m³</p>
           </CardContent>
         </Card>
         <Card>
@@ -80,7 +82,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
             <HardHat className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent className="p-4 pt-0">
-            <p className="text-2xl font-bold text-primary">{cumul.acier.toFixed(0)} kg</p>
+            <p className="text-2xl font-bold text-foreground">{cumul.acier.toFixed(0)} kg</p>
           </CardContent>
         </Card>
         <Card>
@@ -103,8 +105,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
         </Card>
       </div>
 
+      {/* Boutons d'action */}
       <div className="flex flex-wrap gap-4 items-center justify-between">
-        <Button asChild>
+        <Button asChild id="btn-add-structure">
           <Link href={`/projects/${id}/new`}>
             <PlusCircle className="mr-2 h-4 w-4" />
             Ajouter un ouvrage
@@ -113,6 +116,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
         <ExportButtons projectId={id} />
       </div>
 
+      {/* Tableau des ouvrages */}
       {structures && structures.length > 0 ? (
         <div className="rounded-md border bg-card">
           <Table>
@@ -134,7 +138,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
                   <TableCell className="text-foreground">{s.structure_types?.name || "Inconnu"}</TableCell>
                   <TableCell className="font-medium text-foreground">{s.parameters?.results?.volume?.toFixed(2) || "-"} m³</TableCell>
                   <TableCell className="font-medium text-foreground">{s.parameters?.results?.surfaceCoffrage?.toFixed(2) || "-"} m²</TableCell>
-                  <TableCell className="font-medium text-primary">{s.parameters?.results?.acier?.toFixed(0) || "-"} kg</TableCell>
+                  <TableCell className="font-medium text-foreground">{s.parameters?.results?.acier?.toFixed(0) || "-"} kg</TableCell>
                   <TableCell className="font-medium text-foreground">{s.parameters?.results?.nbParpaings || "-"}</TableCell>
                   <TableCell className="font-medium text-foreground">{s.parameters?.results?.volumeMortier?.toFixed(2) || "-"} m³</TableCell>
                 </TableRow>
@@ -145,7 +149,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
       ) : (
         <div className="flex flex-col items-center justify-center py-12 text-center border rounded-md bg-card">
           <HardHat className="h-12 w-12 text-muted-foreground mb-4" />
-          <h3 className="text-lg font-medium text-foreground">Aucun ouvrage</h3>
+          <h3 className="text-lg font-medium">Aucun ouvrage</h3>
           <p className="text-muted-foreground mt-1">
             Ajoutez votre premier ouvrage pour voir le métré.
           </p>

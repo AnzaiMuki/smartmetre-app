@@ -2,10 +2,14 @@
 
 import { usePathname } from "next/navigation";
 import { NavigationBar } from "./NavigationBar";
+import OnboardingTutorial from "./OnboardingTutorial";
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isPublicPage = pathname === "/" || pathname.startsWith("/login") || pathname.startsWith("/signup");
+  const isPublicPage =
+    pathname === "/" ||
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/signup");
 
   if (isPublicPage) {
     return <>{children}</>;
@@ -25,6 +29,9 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
         <main className="p-4 pb-24">{children}</main>
         <NavigationBar />
       </div>
+
+      {/* Tutoriel onboarding */}
+      <OnboardingTutorial />
     </div>
   );
 }

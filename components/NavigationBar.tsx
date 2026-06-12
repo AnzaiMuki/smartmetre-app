@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 const navItems = [
   { href: "/dashboard", label: "Accueil", icon: Home },
-  { href: "/dashboard", label: "Projets", icon: FolderKanban }, // même page pour l'instant, ou /projects
+  { href: "/dashboard", label: "Projets", icon: FolderKanban },
   { href: "/search", label: "Rechercher", icon: Search },
   { href: "/settings", label: "Paramètres", icon: Settings },
 ];
@@ -42,6 +42,7 @@ export function NavigationBar() {
               <Link
                 key={item.href}
                 href={item.href}
+                id={item.href === "/dashboard" ? "nav-dashboard" : undefined}
                 className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                   isActive
                     ? "bg-primary/10 text-primary"
@@ -55,7 +56,11 @@ export function NavigationBar() {
           })}
         </nav>
         <div className="p-4 border-t">
-          <Button variant="ghost" className="w-full justify-start text-muted-foreground" onClick={handleLogout}>
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-muted-foreground"
+            onClick={handleLogout}
+          >
             Déconnexion
           </Button>
         </div>
@@ -69,6 +74,7 @@ export function NavigationBar() {
             <Link
               key={item.href}
               href={item.href}
+              id={item.href === "/dashboard" ? "nav-dashboard" : undefined}
               className={`flex flex-col items-center text-xs ${
                 isActive ? "text-primary" : "text-muted-foreground"
               }`}

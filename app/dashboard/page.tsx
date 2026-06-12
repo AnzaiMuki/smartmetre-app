@@ -10,11 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  PlusCircle,
-  FolderOpen,
-  HardHat,
-} from "lucide-react";
+import { PlusCircle, FolderOpen, HardHat } from "lucide-react";
 
 export default async function Dashboard() {
   const supabase = await createClient();
@@ -56,7 +52,7 @@ export default async function Dashboard() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2 text-foreground">
+          <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
             <HardHat className="h-8 w-8 text-primary" />
             Tableau de bord
           </h1>
@@ -64,7 +60,7 @@ export default async function Dashboard() {
             Aperçu global de vos métrés
           </p>
         </div>
-        <Button asChild size="lg">
+        <Button asChild size="lg" id="btn-new-project">
           <Link href="/projects/new">
             <PlusCircle className="mr-2 h-5 w-5" />
             Nouveau projet
@@ -110,8 +106,11 @@ export default async function Dashboard() {
             <TableBody>
               {projects.map((project) => (
                 <TableRow key={project.id} className="hover:bg-muted/50 transition-colors">
-                  <TableCell className="font-medium text-foreground">
-                    <Link href={`/projects/${project.id}`} className="text-primary hover:underline">
+                  <TableCell className="font-medium">
+                    <Link
+                      href={`/projects/${project.id}`}
+                      className="text-primary hover:underline"
+                    >
                       {project.name}
                     </Link>
                   </TableCell>
@@ -133,7 +132,7 @@ export default async function Dashboard() {
       ) : (
         <div className="flex flex-col items-center justify-center py-16 text-center border rounded-md bg-card">
           <FolderOpen className="h-12 w-12 text-muted-foreground mb-4" />
-          <h3 className="text-lg font-medium text-foreground">Aucun projet</h3>
+          <h3 className="text-lg font-medium">Aucun projet</h3>
           <p className="text-muted-foreground mt-1">
             Créez votre premier projet pour commencer le métré.
           </p>
